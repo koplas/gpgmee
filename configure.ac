@@ -294,6 +294,7 @@ else
         unset PYTHON_LDFLAGS
         unset PYTHON_LIBS
         unset PYTHON_SITE_PKG
+        unset PYTHON_PLATFORM_SITE_PKG
         unset PYTHON_EXTRA_LIBS
         unset PYTHON_EXTRA_LDFLAGS
         unset ac_cv_path_PYTHON
