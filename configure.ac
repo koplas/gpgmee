@@ -284,8 +284,10 @@ else
     PYTHON_VERSIONS=
 
     # Reset everything, so that we can look for another Python.
+    # Only look for Python versions explicitly that are not yet end-of-life.
+    # As fallback look for any Python version >= 3.6.
     m4_foreach([mym4pythonver],
-               [[3.6],[3.9],[3.10],[3.11],[3.12],[3.13],[all]],
+               [[3.9],[3.10],[3.11],[3.12],[3.13],[any]],
         [unset PYTHON
         unset PYTHON_VERSION
         unset PYTHON_CPPFLAGS
@@ -300,13 +302,13 @@ else
         unset am_cv_python_platform
         unset am_cv_python_pythondir
         unset am_cv_python_pyexecdir
-        AM_PATH_PYTHON(mym4pythonver, [
+        AM_PATH_PYTHON(m4_if(mym4pythonver,[any],[3.6],mym4pythonver), [
             AX_PYTHON_DEVEL([], [true])
             if test "$PYTHON_VERSION"; then
                     PYTHONS="$(echo $PYTHONS $PYTHON)"
                     PYTHON_VERSIONS="$(echo $PYTHON_VERSIONS $PYTHON_VERSION)"
             fi
-        ], :, m4_if([mym4pythonver],[all],[],[python]mym4pythonver))
+        ], :, m4_if(mym4pythonver,[any],[],[python]mym4pythonver))
         ])
 
     # Recover some values lost in the second attempt to find Python.
