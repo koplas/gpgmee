@@ -4,14 +4,14 @@
 ## Updated by James Henstridge and other contributors.
 ## Updated by Werner Koch 2018-10-17
 ## ------------------------
-# Copyright (C) 1999-2021 Free Software Foundation, Inc.
+# Copyright (C) 1999-2024 Free Software Foundation, Inc.
 #
 # This file is free software; the Free Software Foundation
 # gives unlimited permission to copy and/or distribute it,
 # with or without modifications, as long as this notice is preserved.
 
 
-# AM_PATH_PYTHON([MINIMUM-VERSION], [ACTION-IF-FOUND], [ACTION-IF-NOT-FOUND]
+# AM_PATH_PYTHON([MINIMUM-VERSION], [ACTION-IF-FOUND], [ACTION-IF-NOT-FOUND],
 #                [INTERPRETER-LIST])
 # ---------------------------------------------------------------------------
 # Adds support for distributing Python modules and packages.  To
@@ -37,12 +37,12 @@
 AC_DEFUN([AM_PATH_PYTHON],
  [
   dnl Find a Python interpreter.  Python versions prior to 3.9 are
-  dnl end-of-life and not supported, with the exception of 2.7 and 3.6.
+  dnl end-of-life and not supported, with the exception of 3.6.
   m4_define_default([_AM_PYTHON_INTERPRETER_LIST],
-[python2 python2.7 dnl
- python dnl
- python3 python3.13 python3.12 python3.11 python3.10 python3.9 python3.6
- ])
+[python python3 dnl
+ python3.20 python3.19 python3.18 python3.17 python3.16 dnl
+ python3.15 python3.14 python3.13 python3.12 python3.11 python3.10 dnl
+ python3.9 python3.6])
 
   AC_ARG_VAR([PYTHON], [the Python interpreter])
 
@@ -236,15 +236,15 @@ try:
     if python_implementation() == 'CPython' and sys.version[[:3]] == '2.7':
         can_use_sysconfig = 0
 except ImportError:
-    pass"
+    pass" # end of am_python_setup_sysconfig
 
   dnl emacs-page Set up 4 directories:
 
   dnl 1. pythondir: where to install python scripts.  This is the
   dnl    site-packages directory, not the python standard library
-  dnl    directory like in previous automake betas.  This behavior
+  dnl    directory as in early automake betas.  This behavior
   dnl    is more consistent with lispdir.m4 for example.
-  dnl Query distutils for this directory.
+  dnl Query sysconfig or distutils (per above) for this directory.
   dnl
   AC_CACHE_CHECK([for $am_display_PYTHON script directory (pythondir)],
   [am_cv_python_pythondir],
@@ -286,7 +286,8 @@ sys.stdout.write(sitedir)"`
 
   dnl 3. pyexecdir: directory for installing python extension modules
   dnl    (shared libraries).
-  dnl Query distutils for this directory.
+  dnl Query sysconfig or distutils for this directory.
+  dnl Much of this is the same as for prefix setup above.
   dnl
   AC_CACHE_CHECK([for $am_display_PYTHON extension module directory (pyexecdir)],
   [am_cv_python_pyexecdir],

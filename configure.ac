@@ -285,7 +285,7 @@ else
 
     # Reset everything, so that we can look for another Python.
     m4_foreach([mym4pythonver],
-               [[2.7],[3.6],[3.9],[3.10],[3.11],[3.12],[3.13],[all]],
+               [[3.6],[3.9],[3.10],[3.11],[3.12],[3.13],[all]],
         [unset PYTHON
         unset PYTHON_VERSION
         unset PYTHON_CPPFLAGS
