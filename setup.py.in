@@ -229,7 +229,7 @@ swige = Extension(
     extra_link_args=libs)
 
 setup(
-    name='gpg',
+    name='gpgmee',
     cmdclass={'build': BuildExtFirstHack},
     version='@VERSION@',
     # Note: description appears as Summary in egg-info file.
