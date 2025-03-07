@@ -100,7 +100,7 @@ if not gpgme_h:
     if os.path.exists(os.path.join('@prefix@', 'include', 'gpgme.h')):
         gpgme_h = os.path.join('@prefix@', 'include', 'gpgme.h')
     else:
-        for include_dir in (include_dirs or ['/usr/include']):
+        for include_dir in (include_dirs + ['/usr/include']):
             if os.path.exists(os.path.join(include_dir, 'gpgme.h')):
                 gpgme_h = os.path.join(include_dir, 'gpgme.h')
                 break
